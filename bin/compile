@@ -109,6 +109,7 @@ notice Configuring Spark
 rm -rf $build_dir/spark-home/lib/spark-examples-*
 rm -rf $build_dir/spark-home/yarn
 rm -rf $build_dir/spark-home/jars/*kubernetes*
+rm -rf $build_dir/spark-home/jars/spark-mllib*
 mkdir -p $build_dir/spark-home/conf
 cautious_build_overlay conf/spark-env.sh spark-home/
 mkdir -p $build_dir/conf
