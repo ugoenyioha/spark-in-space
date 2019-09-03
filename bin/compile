@@ -65,7 +65,7 @@ hadoop_version=2.7
 fetch_spark_tarball() {
     local tarball_file="spark-${spark_version}-bin-hadoop${hadoop_version}.tgz"
     local stack="cedar-14"
-    local spark_tarball_url="http://mirrors.advancedhosters.com/apache/spark/spark-2.4.4/spark-2.4.4-bin-hadoop2.7.tgz"
+    local spark_tarball_url="http://apache.mirrors.lucidnetworks.net/spark/spark-2.4.4/spark-2.4.4-bin-without-hadoop.tgz"
     local dest_path="$cache_dir/$stack/$tarball_file"
 
     if [ -f "$dest_path" ]; then
@@ -115,15 +115,15 @@ cautious_build_overlay conf/log4j.properties.erb
 cautious_build_overlay conf/spark-defaults.conf.erb
 finish Configuring Spark
 
-start Installing s3n:// and s3a:// HDFS Support
-mkdir -p $build_dir/spark-home/lib
-curl -s -L https://s3.amazonaws.com/heroku-spark/libhadoop.so.1.0.0 > $build_dir/spark-home/lib/libhadoop.so
-curl -s -L https://s3.amazonaws.com/heroku-spark/libhdfs.so.0.0.0 > $build_dir/spark-home/lib/libhdfs.so
-curl -s -L https://s3.amazonaws.com/heroku-spark/$hadoop_aws_shade > $build_dir/spark-home/lib/hadoop-aws-shaded.jar
-curl -s -L https://s3.amazonaws.com/heroku-spark/twitter-hadoop-lzo/liblzo2.so.2.0.0 > $build_dir/spark-home/lib/liblzo2.so
-curl -s -L https://s3.amazonaws.com/heroku-spark/twitter-hadoop-lzo/libgplcompression.so.0.0.0 > $build_dir/spark-home/lib/libgplcompression.so
-curl -s -L https://s3.amazonaws.com/heroku-spark/twitter-hadoop-lzo/hadoop-lzo-0.4.20-SNAPSHOT.jar > $build_dir/spark-home/lib/hadoop-lzo.jar
-finish Installing s3a:// HDFS Support
+#start Installing s3n:// and s3a:// HDFS Support
+#mkdir -p $build_dir/spark-home/lib
+#curl -s -L https://s3.amazonaws.com/heroku-spark/libhadoop.so.1.0.0 > $build_dir/spark-home/lib/libhadoop.so
+#curl -s -L https://s3.amazonaws.com/heroku-spark/libhdfs.so.0.0.0 > $build_dir/spark-home/lib/libhdfs.so
+#curl -s -L https://s3.amazonaws.com/heroku-spark/$hadoop_aws_shade > $build_dir/spark-home/lib/hadoop-aws-shaded.jar
+#curl -s -L https://s3.amazonaws.com/heroku-spark/twitter-hadoop-lzo/liblzo2.so.2.0.0 > $build_dir/spark-home/lib/liblzo2.so
+#curl -s -L https://s3.amazonaws.com/heroku-spark/twitter-hadoop-lzo/libgplcompression.so.0.0.0 > $build_dir/spark-home/lib/libgplcompression.so
+#curl -s -L https://s3.amazonaws.com/heroku-spark/twitter-hadoop-lzo/hadoop-lzo-0.4.20-SNAPSHOT.jar > $build_dir/spark-home/lib/hadoop-lzo.jar
+#finish Installing s3a:// HDFS Support
 
 start cleanup
 rm -rf $dest_path
