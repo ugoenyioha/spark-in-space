@@ -18,7 +18,7 @@
     },
     "LOG_LEVEL": {
       "description": "log4j log level for spark",
-      "value":  "INFO"
+      "value": "INFO"
     }
   },
   "formation": {
@@ -52,5 +52,6 @@
     {
       "url": "https://github.com/kr/heroku-buildpack-inline.git"
     }
-  ]
+  ],
+  "environments": {}
 }
