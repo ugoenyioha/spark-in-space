@@ -125,5 +125,7 @@ curl -s -L https://s3.amazonaws.com/heroku-spark/twitter-hadoop-lzo/libgplcompre
 curl -s -L https://s3.amazonaws.com/heroku-spark/twitter-hadoop-lzo/hadoop-lzo-0.4.20-SNAPSHOT.jar > $build_dir/spark-home/lib/hadoop-lzo.jar
 finish Installing s3a:// HDFS Support
 
+rm -rf $dest_path
+
 
 
