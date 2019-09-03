@@ -23,49 +23,46 @@ finish() {
 
 cd $build_dir
 
-#spark_version=1.6.1
-#hadoop_version=2.6
+spark_version=1.6.1
+hadoop_version=2.6
 hadoop_aws_shade_27=hadoop-aws-shaded-no-jackson-0.2-hadoop-2.7-SNAPSHOT-shaded.jar
 hadoop_aws_shade_26=hadoop-aws-shaded-no-jackson-0.1-SNAPSHOT-shaded.jar
-hadoop_aws_shade=$hadoop_aws_shade_27
+hadoop_aws_shade=$hadoop_aws_shade_26
 
-spark_version=2.4.4
-hadoop_version=2.7
-
-#if [ -f "$build_dir/.spark.version" ]; then
-#    spark_version=$(cat "$build_dir/.spark.version" | xargs)
-#    notice "Detected spark version: ${spark_version} configured in .spark.version"
-#    if [ "$spark_version" == "2.0.0" ]; then
-#      hadoop_version=2.7
-#      hadoop_aws_shade=$hadoop_aws_shade_27
-#    elif [ "$spark_version" == "2.1.0" ]; then
-#          hadoop_version=2.7
-#          hadoop_aws_shade=$hadoop_aws_shade_27
-#    elif [ "$spark_version" == "2.1.1" ]; then
-#          hadoop_version=2.7
-#          hadoop_aws_shade=$hadoop_aws_shade_27
-#    elif [ "$spark_version" == "2.0.2" ]; then
-#          hadoop_version=2.7
-#          hadoop_aws_shade=$hadoop_aws_shade_27
-#    elif [ "$spark_version" == "1.6.1" ]; then
-#      hadoop_version=2.6
-#    elif [ "$spark_version" == "1.6.2_scala_2.11" ]; then
-#      hadoop_version=2.6
-#      spark_version=1.6.2_scala_2.11
-#    elif [ "$spark_version" == "1.4.1" ]; then
-#      hadoop_version=2.6
-#    else
-#      notice "Only 1.4.1, 1.6.1, 1.6.2_scala_2.11, 2.0.0, 2.0.2, 2.1.0, 2.1.1 are currently supported as .spark.version, exiting."
-#      exit 1
-#    fi
-#else
-#  notice "Defaulting to Spark 1.6.1 for Hadoop 2.6"
-#fi
+if [ -f "$build_dir/.spark.version" ]; then
+    spark_version=$(cat "$build_dir/.spark.version" | xargs)
+    notice "Detected spark version: ${spark_version} configured in .spark.version"
+    if [ "$spark_version" == "2.0.0" ]; then
+      hadoop_version=2.7
+      hadoop_aws_shade=$hadoop_aws_shade_27
+    elif [ "$spark_version" == "2.1.0" ]; then
+          hadoop_version=2.7
+          hadoop_aws_shade=$hadoop_aws_shade_27
+    elif [ "$spark_version" == "2.1.1" ]; then
+          hadoop_version=2.7
+          hadoop_aws_shade=$hadoop_aws_shade_27
+    elif [ "$spark_version" == "2.0.2" ]; then
+          hadoop_version=2.7
+          hadoop_aws_shade=$hadoop_aws_shade_27
+    elif [ "$spark_version" == "1.6.1" ]; then
+      hadoop_version=2.6
+    elif [ "$spark_version" == "1.6.2_scala_2.11" ]; then
+      hadoop_version=2.6
+      spark_version=1.6.2_scala_2.11
+    elif [ "$spark_version" == "1.4.1" ]; then
+      hadoop_version=2.6
+    else
+      notice "Only 1.4.1, 1.6.1, 1.6.2_scala_2.11, 2.0.0, 2.0.2, 2.1.0, 2.1.1 are currently supported as .spark.version, exiting."
+      exit 1
+    fi
+else
+  notice "Defaulting to Spark 1.6.1 for Hadoop 2.6"
+fi
 
 fetch_spark_tarball() {
     local tarball_file="spark-${spark_version}-bin-hadoop${hadoop_version}.tgz"
     local stack="cedar-14"
-    local spark_tarball_url="http://mirrors.advancedhosters.com/apache/spark/spark-2.4.4/spark-2.4.4-bin-hadoop2.7.tgz"
+    local spark_tarball_url="https://s3-external-1.amazonaws.com/heroku-spark/spark-${spark_version}-bin-hadoop${hadoop_version}.tgz"
     local dest_path="$cache_dir/$stack/$tarball_file"
 
     if [ -f "$dest_path" ]; then
@@ -124,10 +121,6 @@ curl -s -L https://s3.amazonaws.com/heroku-spark/twitter-hadoop-lzo/liblzo2.so.2
 curl -s -L https://s3.amazonaws.com/heroku-spark/twitter-hadoop-lzo/libgplcompression.so.0.0.0 > $build_dir/spark-home/lib/libgplcompression.so
 curl -s -L https://s3.amazonaws.com/heroku-spark/twitter-hadoop-lzo/hadoop-lzo-0.4.20-SNAPSHOT.jar > $build_dir/spark-home/lib/hadoop-lzo.jar
 finish Installing s3a:// HDFS Support
-
-start cleanup
-rm -rf $dest_path
-finish cleanup
 
 
 
