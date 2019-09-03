@@ -63,7 +63,7 @@ hadoop_version=2.7
 #fi
 
 fetch_spark_tarball() {
-    local tarball_file="spark-${spark_version}-bin-hadoop${hadoop_version}.tgz"
+    local tarball_file="spark-${spark_version}-bin-without-hadoop.tgz"
     local stack="cedar-14"
     local spark_tarball_url="http://apache.mirrors.lucidnetworks.net/spark/spark-2.4.4/spark-2.4.4-bin-without-hadoop.tgz"
     local dest_path="$cache_dir/$stack/$tarball_file"
