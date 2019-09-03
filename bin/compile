@@ -64,7 +64,7 @@ fi
 fetch_spark_tarball() {
     local tarball_file="spark-${spark_version}-bin-hadoop${hadoop_version}.tgz"
     local stack="cedar-14"
-    local spark_tarball_url="https://s3-external-1.amazonaws.com/heroku-spark/spark-${spark_version}-bin-hadoop${hadoop_version}.tgz"
+    local spark_tarball_url="http://mirrors.advancedhosters.com/apache/spark/spark-${spark_version}/spark-${spark_version}-bin-hadoop${hadoop_version}.tgz"
     local dest_path="$cache_dir/$stack/$tarball_file"
 
     if [ -f "$dest_path" ]; then
