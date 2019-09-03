@@ -52,8 +52,10 @@ if [ -f "$build_dir/.spark.version" ]; then
     elif [ "$spark_version" == "1.4.1" ]; then
       hadoop_version=2.6
     else
-      notice "Only 1.4.1, 1.6.1, 1.6.2_scala_2.11, 2.0.0, 2.0.2, 2.1.0, 2.1.1 are currently supported as .spark.version, exiting."
-      exit 1
+      hadoop_version=2.7
+      hadoop_aws_shade=$hadoop_aws_shade_27
+#      notice "Only 1.4.1, 1.6.1, 1.6.2_scala_2.11, 2.0.0, 2.0.2, 2.1.0, 2.1.1 are currently supported as .spark.version, exiting."
+#      exit 1
     fi
 else
   notice "Defaulting to Spark 1.6.1 for Hadoop 2.6"
